@@ -1,0 +1,27 @@
+// See http://go.microsoft.com/fwlink/?LinkId=733558 for the documentation about the tasks.json format
+{
+    "version": "0.1.0",
+    "command": "bash",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "args": [
+        "-c"
+    ],
+    "options": {
+        "cwd": "${fileDirname}"
+    },
+    "tasks": [
+        {
+            "taskName": "Go Run",
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "args": ["go run *.go"]
+        },
+        {
+            "taskName": "Go Test",
+            "suppressTaskName": true,
+            "isTestCommand": true,
+            "args": ["go test -v"]
+        }
+    ]
+}
