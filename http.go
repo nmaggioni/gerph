@@ -124,13 +124,18 @@ func deleteBucketKey(res http.ResponseWriter, req *http.Request, params goat.Par
 // Listen configures and starts a web server, enclosing it in an asynchronous goroutine.
 func Listen(port string) {
 	router := goat.New()
-	router.Get("/", "listAllKeys", listAllKeys)
-	router.Get("/:bucket", "listBucketKeys", listBucketKeys)
-	router.Delete("/:bucket", "deleteBucket", deleteBucket)
-	router.Get("/:bucket/:key", "getBucketKey", getBucketKey)
-	router.Put("/:bucket/:key", "setBucketKey", setBucketKey)
-	router.Post("/:bucket/:key", "setBucketKey", setBucketKey)
-	router.Delete("/:bucket/:key", "deleteBucketKey", deleteBucketKey)
+	router.Options("/", "help", func(res http.ResponseWriter, req *http.Request, _ goat.Params) {
+		setPoweredByHeader(res)
+		goat.WriteJSON(res, router.Index())
+	})
+
+	router.Get("/", "list_all_buckets_and_keys", listAllBucketsKeys)
+	router.Get("/:bucket", "list_bucket_keys", listBucketKeys)
+	router.Delete("/:bucket", "delete_bucket", deleteBucket)
+	router.Get("/:bucket/:key", "get_bucket_key", getBucketKey)
+	router.Put("/:bucket/:key", "set_bucket_key", setBucketKey)
+	router.Post("/:bucket/:key", "set_bucket_key", setBucketKey)
+	router.Delete("/:bucket/:key", "delete_bucket_key", deleteBucketKey)
 
 	err := router.Run(":" + port)
 	if err != nil {
