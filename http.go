@@ -9,7 +9,12 @@ import (
 
 type bucketKeys map[string][]KeyValue
 
-func listAllKeys(res http.ResponseWriter, req *http.Request, params goat.Params) {
+func setPoweredByHeader(res http.ResponseWriter) {
+	res.Header().Set("X-Powered-By", "gerph")
+}
+
+func listAllBucketsKeys(res http.ResponseWriter, req *http.Request, params goat.Params) {
+	setPoweredByHeader(res)
 	buckets, err := ListBuckets()
 	if err != nil {
 		http.Error(res, err.Error(), http.StatusInternalServerError)
@@ -25,6 +30,7 @@ func listAllKeys(res http.ResponseWriter, req *http.Request, params goat.Params)
 }
 
 func listBucketKeys(res http.ResponseWriter, req *http.Request, params goat.Params) {
+	setPoweredByHeader(res)
 	keys, err := ListBucketKeys(params["bucket"])
 	if err != nil {
 		if err.Error() == "no such bucket" {
@@ -38,6 +44,7 @@ func listBucketKeys(res http.ResponseWriter, req *http.Request, params goat.Para
 }
 
 func deleteBucket(res http.ResponseWriter, req *http.Request, params goat.Params) {
+	setPoweredByHeader(res)
 	if params["bucket"] != "" {
 		err := DeleteBucket(params["bucket"])
 		if err != nil {
@@ -51,6 +58,7 @@ func deleteBucket(res http.ResponseWriter, req *http.Request, params goat.Params
 }
 
 func getBucketKey(res http.ResponseWriter, req *http.Request, params goat.Params) {
+	setPoweredByHeader(res)
 	if params["bucket"] != "" && params["key"] != "" {
 		value, err := GetKey(params["bucket"], params["key"])
 		if err != nil {
@@ -76,6 +84,7 @@ func getBucketKey(res http.ResponseWriter, req *http.Request, params goat.Params
 }
 
 func setBucketKey(res http.ResponseWriter, req *http.Request, params goat.Params) {
+	setPoweredByHeader(res)
 	err := req.ParseForm()
 	if err != nil {
 		http.Error(res, err.Error(), http.StatusInternalServerError)
@@ -99,6 +108,7 @@ func setBucketKey(res http.ResponseWriter, req *http.Request, params goat.Params
 }
 
 func deleteBucketKey(res http.ResponseWriter, req *http.Request, params goat.Params) {
+	setPoweredByHeader(res)
 	if params["bucket"] != "" && params["key"] != "" {
 		err := DeleteKey(params["bucket"], params["key"])
 		if err != nil {
