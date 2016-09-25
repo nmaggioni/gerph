@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/bahlo/goat"
+	"github.com/nmaggioni/goat"
 )
 
 type bucketKeys map[string][]KeyValue
