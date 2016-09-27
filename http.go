@@ -121,7 +121,7 @@ func deleteBucketKey(res http.ResponseWriter, req *http.Request, params goat.Par
 	}
 }
 
-// Listen configures and starts a web server, enclosing it in an asynchronous goroutine.
+// Listen configures and starts a web server and its router.
 func Listen(port string) {
 	router := goat.New()
 	router.Options("/", "help", func(res http.ResponseWriter, req *http.Request, _ goat.Params) {
