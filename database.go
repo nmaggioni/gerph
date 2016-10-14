@@ -104,6 +104,14 @@ func ListBuckets() ([]string, error) {
     return buckets, nil
 }
 
+func CountBuckets() (int, error) {
+	bucketNames, err := ListBuckets()
+	if err != nil {
+		return 0, err
+	}
+	return len(bucketNames), nil
+}
+
 func ListBucketKeys(bucket string) ([]KeyValue, error) {
     var kv []KeyValue
     err := DB.View(func(tx *bolt.Tx) error {
@@ -121,4 +129,20 @@ func ListBucketKeys(bucket string) ([]KeyValue, error) {
         return nil, err
     }
     return kv, nil
+}
+
+func CountKeys() (int, error) {
+	bucketNames, err := ListBuckets()
+	if err != nil {
+		return 0, err
+	}
+	keysCount := 0
+	for i := 0; i < len(bucketNames); i++ {
+		bucketKeys, err := ListBucketKeys(bucketNames[i])
+		if err != nil {
+			return 0, err
+		}
+		keysCount += len(bucketKeys)
+	}
+	return keysCount, nil
 }

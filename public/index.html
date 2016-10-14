@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Gerph WebUI">
+	<meta name="author" content="Niccolò Maggioni">
+
+	<title>Gerph WebUI</title>
+
+	<link href="/asset/bootstrap.min.css" rel="stylesheet">
+	<link href="/asset/font-awesome.css" rel="stylesheet">
+	<link href="/asset/dashboard.css" rel="stylesheet">
+	<link href="/asset/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+				<a class="navbar-brand" href="/">Gerph WebUI</a>
+			</div>
+		</div>
+	</nav>
+
+	<a href="https://github.com/nmaggioni/gerph" target='_blank'><img style="z-index: 9999; position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67"
+			alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active" id="overview-li"><a href="#" onclick="getStats();">Overview</span></a></li>
+					<li><a href="/backup" style="color: darkred;">Download backup</a></li>
+				</ul>
+				<p>Buckets</p>
+				<ul class="nav nav-sidebar" id="buckets-sidebar">
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header">Dashboard</h1>
+
+				<div class="row placeholders">
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<div class="circle" id="number-buckets">N/A</div>
+						<h4>Buckets</h4>
+						<span class="text-muted">Number of buckets</span>
+					</div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<div class="circle" id="number-keys">N/A</div>
+						<h4>Keys</h4>
+						<span class="text-muted">Number of keys</span>
+					</div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<div class="circle" id="disk-space-used">N/A</div>
+						<h4>Size</h4>
+						<span class="text-muted">Occupied disk space (MB)</span>
+					</div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<div class="circle" id="disk-space-free">N/A</div>
+						<h4>Available</h4>
+						<span class="text-muted">Available capacity (GB)</span>
+					</div>
+				</div>
+
+				<h2 class="sub-header" id="keys-table-header">
+					<span class="sub-header-text">Keys</span>
+					<button type="button" class="btn btn-success" id="btn-add" style="float: right;"><span class="fa fa-plus-circle"></span> Add a new key</button>
+				</h2>
+				<div class="table-responsive">
+					<table class="table table-striped" id="keys-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Bucket</th>
+								<th>Key</th>
+								<th>Value</th>
+								<th style="text-align: center">Edit</th>
+								<th style="text-align: center">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/asset/jquery.min.js"></script>
+	<script src="/asset/bootstrap.min.js"></script>
+	<script src="/asset/loadie.js"></script>
+	<script src="/asset/main.js"></script>
+</body>
+
+</html>

@@ -16,6 +16,7 @@ var (
 	DB *bolt.DB
 	portPtr *string
 	dbPathPtr *string
+	DBPath string
 )
 
 func catchSignals() {
@@ -36,6 +37,7 @@ func catchSignals() {
 func main() {
 	portPtr = flag.String("port", "3000", "The port to listen on.")
 	dbPathPtr = flag.String("dbpath", "./gerph.db", "The path to the file to save the keystore in.")
+	DBPath = *dbPathPtr
 	flag.Parse()
 
 	fmt.Print("[..] Setting up DB in \"" + *dbPathPtr + "\"\r")

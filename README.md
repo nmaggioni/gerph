@@ -10,6 +10,7 @@ Based on the [bolt](https://github.com/boltdb/bolt) key/value database and the [
 	- [Packaged releases](#packaged-releases)
 	- [From source](#from-source)
 - [Usage](#usage)
+    - [WebUI](#webui)
     - [CLI](#cli)
 	- [API](#api)
 - [Examples](#examples)
@@ -33,6 +34,12 @@ $ go install github.com/nmaggioni/gerph
 
 ## Usage
 
+### WebUI
+
+Gerph has an easy to use Dashboard that covers all the basic operations, reachable at the root of the domain.
+
+![WebUI Dashboard](https://raw.githubusercontent.com/nmaggioni/gerph/master/dashboard.png)
+
 ### CLI
 
 Gerph has some useful command line options, you can check them by using the help flag:
@@ -48,13 +55,13 @@ Being based on [bolt](https://github.com/boltdb/bolt), Gerph has the concept of 
 
 | HTTP Method | Path | Explanation |
 |-------------|------|-------------|
-| OPTIONS | / | Will show a list of all the endpoints grouped by method. |
-| GET | / | Will reply with a listing of all the buckets and their keys. |
-| GET | /:bucket | Will show all the keys inside the specified bucket. |
-| DELETE | /:bucket | Will delete the specified bucket and its keys. |
-| GET | /:bucket/:key | Will reply with the content of the specified key of the specified bucket. |
-| PUT or POST | /:bucket/:key | Will set the content of the specified key of the specified bucket to the given content. Content must be sent in `x-www-form-urlencoded` encoding (`Content-Type` header set to `application/x-www-form-urlencoded`), and the value of the key must be set to the `value` field.|
-| DELETE | /:bucket/:key | Will delete the specified key of the specified bucket. |
+| OPTIONS | /api | Will show a list of all the endpoints grouped by method. |
+| GET | /api | Will reply with a listing of all the buckets and their keys. |
+| GET | /api/:bucket | Will show all the keys inside the specified bucket. |
+| DELETE | /api/:bucket | Will delete the specified bucket and its keys. |
+| GET | /api/:bucket/:key | Will reply with the content of the specified key of the specified bucket. |
+| PUT or POST | /api/:bucket/:key | Will set the content of the specified key of the specified bucket to the given content. Content must be sent in `x-www-form-urlencoded` encoding (`Content-Type` header set to `application/x-www-form-urlencoded`), and the value of the key must be set to the `value` field.|
+| DELETE | /api/:bucket/:key | Will delete the specified key of the specified bucket. |
 
 Each call can answer with one of these status codes:
 
@@ -65,34 +72,37 @@ Each call can answer with one of these status codes:
 
 ## Examples
 
+To access the WebUI just point your browser to the root of the domain: `http://localhost:3000/`.
+
 ### cURL
 Setting a key:
 
 ```bash
-curl -X PUT -d 'value=myValue' "http://localhost:3000/myBucket/myKey"
+curl -X PUT -d 'value=myValue' "http://localhost:3000/api/myBucket/myKey"
 ```
 
 Getting a key:
 
 ```bash
-curl "http://localhost:3000/myBucket/myKey"
+curl "http://localhost:3000/api/myBucket/myKey"
 ```
 
 Getting all keys of a bucket:
 
 ```bash
-curl "http://localhost:3000/myBucket"
+curl "http://localhost:3000/api/myBucket"
 ```
 
 Getting all keys of all buckets:
 
 ```bash
-curl "http://localhost:3000"
+curl "http://localhost:3000/api/"
 ```
 
 ## Known issues
 
-+ **At the moment Gerph is only capable of storing strings as values.** If other types of data are in need of being stored, the effort of casting back and forth from strings to the actual data type falls on the developer. _Resolution of this problem will be part of the next iteration._
++ **At the moment Gerph is only capable of storing strings as values.** If other types of data are in need of being stored, the effort of casting back and forth from strings to the actual data type falls on the developer.
++ **Free disk space calculation only works in POSIX systems**. For non-POSIX OSs, the free disk space indicator in the WebUI's Dashboard will be labeled as `N/A`.
 
 ## Contribute
 
