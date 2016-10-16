@@ -1,6 +1,6 @@
 # Gerph [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-> A simple key-value networked configuration store written in Go.
+> A simple and blazing fast networked key-value configuration store written in Go.
 
 Based on the [bolt](https://github.com/boltdb/bolt) key/value database and the [goat](https://github.com/bahlo/goat) API framework.
 
