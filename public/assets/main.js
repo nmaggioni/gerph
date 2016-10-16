@@ -135,7 +135,7 @@ function getStats(wantedBucket) {
             });
         });
 
-        paginate(wantedBucket);
+        if ($("#pagination-checkbox")[0].checked) paginate(wantedBucket);
     });
 }
 
@@ -203,5 +203,16 @@ var paginator;
                 return;
         }
         e.preventDefault();
+    });
+
+    $("#pagination-checkbox").change(function() {
+        if (this.checked) {
+            paginate($('#buckets-sidebar li.active').length ? $('#buckets-sidebar li.active').find('a').text() : null);
+        } else {
+            $('#keys-table tbody tr').each(function(row) {
+                $(this).show();
+            });
+            $('#paginator').remove();
+        }
     });
 })();

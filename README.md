@@ -36,7 +36,7 @@ $ go install github.com/nmaggioni/gerph
 
 ### WebUI
 
-Gerph has an easy to use Dashboard that covers all the basic operations, reachable at the root of the domain.
+Gerph has an easy to use Dashboard that covers all the basic operations, reachable at the root of the domain. You can move around using the arrow keys too.
 
 ![WebUI Dashboard](https://raw.githubusercontent.com/nmaggioni/gerph/master/dashboard.png)
 
