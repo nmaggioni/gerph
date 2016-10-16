@@ -134,9 +134,74 @@ function getStats(wantedBucket) {
                 }
             });
         });
+
+        paginate(wantedBucket);
     });
 }
 
+function paginate(wantedBucket) {
+    if (paginator) {
+        $('#paginator').remove();
+    }
+    paginator = $('#keys-table').simplePagination({
+        perPage: wantedBucket ? 10 : 5,
+        containerId: 'paginator',
+        containerClass: '',
+        previousButtonClass: 'btn btn-primary btn-paginator-prev',
+        nextButtonClass: 'btn btn-primary btn-paginator-next',
+        previousButtonText: '<',
+        nextButtonText: '>',
+        currentPage: 1
+    });
+}
+
+var paginator;
+
 (function () {
     getStats();
+
+    $(document).keydown(function(e) {
+        switch(e.which) {
+            case 37: // left
+                var prev = $('.btn-paginator-prev');
+                if (prev) prev.trigger('click');
+                break;
+
+            case 38: // up
+                var active = $('#buckets-sidebar li.active');
+                if (active.length) {
+                    if (active.prev().length) {
+                        active.prev().find('a').trigger('click');
+                    } else {
+                        $('#overview-li').find('a').trigger('click');
+                    }
+                } else {
+                    $('#buckets-sidebar li').last().find('a').trigger('click');
+                }
+                break;
+
+            case 39: // right
+                var next = $('.btn-paginator-next');
+                if (next) next.trigger('click');
+                break;
+
+            case 40: // down
+                var active = $('#buckets-sidebar li.active');
+                if (active.length) {
+                    if (active.next().length) {
+                        active.next().find('a').trigger('click');
+                    } else {
+                        $('#overview-li').find('a').trigger('click');
+                    }
+
+                } else {
+                    $('#buckets-sidebar li').first().find('a').trigger('click');
+                }
+                break;
+
+            default:
+                return;
+        }
+        e.preventDefault();
+    });
 })();
