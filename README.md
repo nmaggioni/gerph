@@ -102,7 +102,6 @@ curl "http://localhost:3000/api/"
 ## Known issues
 
 + **At the moment Gerph is only capable of storing strings as values.** If other types of data are in need of being stored, the effort of casting back and forth from strings to the actual data type falls on the developer.
-+ **Free disk space calculation only works in POSIX systems**. For non-POSIX OSs, the free disk space indicator in the WebUI's Dashboard will be labeled as `N/A`.
 
 ## Contribute
 

@@ -155,15 +155,7 @@ func serveWebStats(res http.ResponseWriter, req *http.Request, params goat.Param
 	keysNumber, _ := CountKeys()
 	dbFileStats, _ := os.Stat(DBPath)
 	dbSizeBytes := dbFileStats.Size()
-	var diskAvailableBytes uint64
-	if runtime.GOOS == "windows" {
-		diskAvailableBytes = 0  // Undefined syscall?  http://stackoverflow.com/a/20110856
-	} else {
-		var stat syscall.Statfs_t
-		cwd, _ := os.Getwd()
-		syscall.Statfs(cwd, &stat)
-		diskAvailableBytes = stat.Bavail * uint64(stat.Bsize)
-	}
+	diskAvailableBytes, _ := GetAvailableDiskSpace()
 	keys, _ := getAllBucketsAndKeys()
 
 	webStats := stats{bucketsNumber, keysNumber, dbSizeBytes, diskAvailableBytes, keys}
