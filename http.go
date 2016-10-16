@@ -1,13 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"path"
-	"runtime"
-	"syscall"
+	"time"
 
+	"github.com/GeertJohan/go.rice"
 	"github.com/nmaggioni/goat"
 )
 
@@ -144,9 +145,19 @@ func deleteBucketKey(res http.ResponseWriter, req *http.Request, params goat.Par
 func serveWebInterface(res http.ResponseWriter, req *http.Request, params goat.Params) {
 	setPoweredByHeader(res)
 	if params["asset"] != "" {
-		http.ServeFile(res, req, "./public/assets/"+params["asset"])
+		box := rice.MustFindBox("public/assets")
+		file, err := box.HTTPBox().Open(params["asset"])
+		if err != nil {
+			fmt.Println(err)
+		}
+		http.ServeContent(res, req, params["asset"], time.Time{}, file)
 	} else {
-		http.ServeFile(res, req, "./public"+req.URL.Path[1:])
+		box := rice.MustFindBox("public")
+		file, err := box.HTTPBox().Open("index.html")
+		if err != nil {
+			fmt.Println(err)
+		}
+		http.ServeContent(res, req, req.URL.Path[1:], time.Time{}, file)
 	}
 }
 
