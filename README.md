@@ -22,7 +22,7 @@ Based on the [bolt](https://github.com/boltdb/bolt) key/value database and the [
 
 ### Packaged releases
 
-Check out [the releases section](https://github.com/nmaggioni/gerph/releases) for ready-to-run binaries,. [Here's the latest one!](https://github.com/nmaggioni/gerph/releases/latest)
+Check out [the releases section](https://github.com/nmaggioni/gerph/releases) for ready-to-run binaries. [Here's the latest one!](https://github.com/nmaggioni/gerph/releases/latest)
 
 ### From source
 
