@@ -7,8 +7,6 @@ function getStats(wantedBucket) {
         $('#number-keys').html(stats.keysNumber);
         $('#disk-space-used').html((stats.diskUsedBytes / 1048576).toFixed(1));  // MB
         $('#disk-space-used').attr('title', stats.diskUsedBytes + ' bytes');
-        $('#disk-space-free').html(stats.diskFreeBytes > 0 ? (stats.diskFreeBytes / 1073741824).toFixed(1) : 'N/A');  // GB
-        $('#disk-space-free').attr('title', stats.diskFreeBytes > 0 ? stats.diskFreeBytes + ' bytes' : 'Not applicable on this OS');
         $('body').loadie(0.50);
 
         var bucket, key, i = 0, keyIndex;

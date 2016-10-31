@@ -18,7 +18,6 @@ type (
 		BucketsNumber int        `json:"bucketsNumber"`
 		KeysNumber    int        `json:"keysNumber"`
 		DiskUsed      int64      `json:"diskUsedBytes"`
-		DiskFree      uint64     `json:"diskFreeBytes"`
 		Keys          bucketKeys `json:"keys"`
 	}
 )
@@ -166,10 +165,9 @@ func serveWebStats(res http.ResponseWriter, req *http.Request, params goat.Param
 	keysNumber, _ := CountKeys()
 	dbFileStats, _ := os.Stat(DBPath)
 	dbSizeBytes := dbFileStats.Size()
-	diskAvailableBytes, _ := GetAvailableDiskSpace()
 	keys, _ := getAllBucketsAndKeys()
 
-	webStats := stats{bucketsNumber, keysNumber, dbSizeBytes, diskAvailableBytes, keys}
+	webStats := stats{bucketsNumber, keysNumber, dbSizeBytes, keys}
 
 	setPoweredByHeader(res)
 	goat.WriteJSON(res, webStats)
