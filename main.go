@@ -10,8 +10,6 @@ import (
 	"github.com/boltdb/bolt"
 )
 
-const DEBUG bool = true
-
 var (
 	DB *bolt.DB
 	portPtr *string
@@ -37,8 +35,8 @@ func catchSignals() {
 func main() {
 	portPtr = flag.String("port", "3000", "The port to listen on.")
 	dbPathPtr = flag.String("dbpath", "./gerph.db", "The path to the file to save the keystore in.")
-	DBPath = *dbPathPtr
 	flag.Parse()
+	DBPath = *dbPathPtr
 
 	fmt.Print("[..] Setting up DB in \"" + *dbPathPtr + "\"\r")
 	db, err := SetupDB(*dbPathPtr)
